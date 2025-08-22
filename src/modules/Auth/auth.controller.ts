@@ -37,8 +37,8 @@ async function login(req: Request<object, UserResponseDto, LoginRequestDto, null
 async function refresh(req: Request<object, null, null, null>, res: Response, next: NextFunction) {
   try {
     const refreshToken: string | undefined = req.cookies.refreshToken as string | undefined
-    const accessToken = await authService.generateNewAccessToken(refreshToken)
-    res.status(HttpStatusCode.OK).json(accessToken)
+    const user = await authService.generateNewAccessToken(refreshToken)
+    res.status(HttpStatusCode.OK).json(user)
   } catch (err) {
     next(err)
   }

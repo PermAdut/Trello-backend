@@ -22,10 +22,10 @@ class TaskRepository {
     return queryResult.rows[0]
   }
 
-  async addTask(task: Omit<ITask, 'id' | 'listId' | 'isCpmpleted'>, listId: number): Promise<ITask> {
+  async addTask(task: Pick<ITask, 'title'>, listId: number): Promise<ITask> {
     const queryResult: QueryResult<ITask> = await pool.query(
-      `INSERT INTO "Tasks" ("listId", title, description) VALUES ($1, $2, $3) RETURNING id, "listId", title, description, isCompleted`,
-      [listId, task.title, task.description],
+      `INSERT INTO "Tasks" ("listId", title) VALUES ($1, $2) RETURNING id, "listId", title, description, isCompleted`,
+      [listId, task.title],
     )
     return queryResult.rows[0]
   }

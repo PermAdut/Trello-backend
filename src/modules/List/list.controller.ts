@@ -8,9 +8,10 @@ import {
 } from './dto/list.request.dto'
 import listService from './list.service'
 import { HttpStatusCode } from '../../utils/statusCodes'
+import { ListParamType } from './dto/list.request.param'
 
 async function getAll(
-  req: Request<{ tableId: number }, ListResponseDto[], GetAllListsRequestDto, null>,
+  req: Request<Pick<ListParamType, 'tableId'>, ListResponseDto[], GetAllListsRequestDto, null>,
   res: Response,
   next: NextFunction,
 ) {
@@ -23,7 +24,7 @@ async function getAll(
 }
 
 async function getOne(
-  req: Request<{ tableId: number; listId: number }, ListResponseDto, GetOneListRequestDto, null>,
+  req: Request<ListParamType, ListResponseDto, GetOneListRequestDto, null>,
   res: Response,
   next: NextFunction,
 ) {
@@ -36,7 +37,7 @@ async function getOne(
 }
 
 async function addOne(
-  req: Request<{ tableId: number }, ListResponseDto, PostListRequestDto, null>,
+  req: Request<Pick<ListParamType, 'tableId'>, ListResponseDto, PostListRequestDto, null>,
   res: Response,
   next: NextFunction,
 ) {
@@ -49,7 +50,7 @@ async function addOne(
 }
 
 async function updateOne(
-  req: Request<{ tableId: number; listId: number }, ListResponseDto, UpdateListRequestDto, null>,
+  req: Request<ListParamType, ListResponseDto, UpdateListRequestDto, null>,
   res: Response,
   next: NextFunction,
 ) {
@@ -62,7 +63,7 @@ async function updateOne(
 }
 
 async function deleteOne(
-  req: Request<{ tableId: number; listId: number }, ListResponseDto, GetOneListRequestDto, null>,
+  req: Request<ListParamType, ListResponseDto, GetOneListRequestDto, null>,
   res: Response,
   next: NextFunction,
 ) {

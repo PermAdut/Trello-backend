@@ -7,6 +7,7 @@ import authRouter from './modules/Auth/auth.routes'
 import tableRouter from './modules/Table/table.routes'
 import logsRouter from './modules/Logs/logs.routes'
 import listRouter from './modules/List/list.route'
+import taskRouter from './modules/Task/task.routes'
 
 const corsOptions = {
   origin: process.env.ORIGINS,
@@ -24,6 +25,7 @@ app.use('/api/v1.0/auth', authRouter)
 app.use('/api/v1.0/table', tableRouter)
 app.use('/api/v1.0/logs', logsRouter)
 app.use('/api/v1.0/list/:tableId', listRouter)
+app.use('/api/v1.0/task/:tableId/:listId', taskRouter)
 app.use(errorHandler)
 
 export default app

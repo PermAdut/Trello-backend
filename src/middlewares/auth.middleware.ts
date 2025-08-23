@@ -4,6 +4,11 @@ import jwtUtil from '../utils/jwt.util'
 import { HttpStatusCode } from '../utils/statusCodes'
 import { ErrorMessages } from '../utils/errorMessage'
 
+export interface JWTPayloadDto {
+  userId: number
+  username: string
+}
+
 export default async function authenticateJwt(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const authHeader = req.headers.authorization

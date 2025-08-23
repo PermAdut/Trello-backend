@@ -2,6 +2,7 @@ import { Router } from 'express'
 import authController from './auth.controller'
 import { body } from 'express-validator'
 import validateMiddleware from '../../middlewares/validate.middleware'
+import authenticateJwt from '../../middlewares/auth.middleware'
 const authRouter = Router()
 authRouter.post(
   '/login',
@@ -67,5 +68,5 @@ authRouter.post(
   authController.register,
 )
 authRouter.post('/refresh', authController.refresh)
-
+authRouter.get('/username', authenticateJwt, authController.getUserName)
 export default authRouter

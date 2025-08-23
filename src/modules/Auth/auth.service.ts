@@ -4,8 +4,8 @@ import jwtUtil from '../../utils/jwt.util'
 import { AppError } from '../../middlewares/error.middleware'
 import { ErrorMessages } from '../../utils/errorMessage'
 import { HttpStatusCode } from '../../utils/statusCodes'
-import { LoginRequestDto, RegisterRequestDto } from './dto/user.request.dto'
-import { UserResponseDto } from './dto/user.response.dto'
+import { LoginRequestDto, RegisterRequestDto, UsernameRequestDto } from './dto/user.request.dto'
+import { UsernameResponseDto, UserResponseDto } from './dto/user.response.dto'
 import { IUser } from './types/user.intreface'
 import '../../common/env'
 import authRepositoryInstance from './auth.repository'
@@ -79,8 +79,21 @@ async function generateNewAccessToken(
   }
 }
 
+async function findUserName(body: UsernameRequestDto): Promise<UsernameResponseDto> {
+  try {
+    await authRepositoryInstance.findUserById(body.userId)
+    return { username: body.username }
+  } catch (err: any) {
+    throw new AppError(
+      err?.status || HttpStatusCode.INTERNAL_SERVER_ERROR,
+      err?.message || ErrorMessages.INTERNAL_SERVER_ERROR,
+    )
+  }
+}
+
 export default {
   registerNewUser,
   loginUser,
   generateNewAccessToken,
+  findUserName,
 }

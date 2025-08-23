@@ -7,3 +7,7 @@ export interface RegisterRequestDto extends Omit<IUser, 'passwordhash'> {
   password: string
   repeatedPassword: string
 }
+
+export interface UsernameRequestDto extends Pick<IUser, 'username'> {
+  userId: number
+}

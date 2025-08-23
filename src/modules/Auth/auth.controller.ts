@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import { LoginRequestDto, RegisterRequestDto } from './dto/user.request.dto'
-import { UserResponseDto } from './dto/user.response.dto'
+import { LoginRequestDto, RegisterRequestDto, UsernameRequestDto } from './dto/user.request.dto'
+import { UsernameResponseDto, UserResponseDto } from './dto/user.response.dto'
 import authService from './auth.service'
 import { HttpStatusCode } from '../../utils/statusCodes'
 
@@ -44,8 +44,22 @@ async function refresh(req: Request<object, null, null, null>, res: Response, ne
   }
 }
 
+async function getUserName(
+  req: Request<object, UsernameResponseDto, UsernameRequestDto, null>,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const username = await authService.findUserName(req.body)
+    res.status(HttpStatusCode.OK).json(username)
+  } catch (err) {
+    next(err)
+  }
+}
+
 export default {
   register,
   login,
   refresh,
+  getUserName,
 }

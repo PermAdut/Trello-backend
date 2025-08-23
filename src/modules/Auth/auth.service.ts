@@ -27,7 +27,6 @@ async function registerNewUser(credentials: RegisterRequestDto): Promise<UserRes
       refreshToken: refreshToken,
     }
   } catch (err: any) {
-    console.log(err)
     if (err?.code === '23505') {
       throw new AppError(HttpStatusCode.CONFLICT, ErrorMessages.USERNAME_OR_EMAIL_NOT_ALLOWED)
     }

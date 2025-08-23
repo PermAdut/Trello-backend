@@ -57,9 +57,23 @@ async function updateUserTable(userId: number, tableId: number, name: string): P
   }
 }
 
+async function addUserTable(name: string, userId: number): Promise<TableResponseDto> {
+  try {
+    await authRepositoryInstance.findUserById(userId)
+    const table = await tableRepositoryInstance.addTable(name, userId)
+    return table
+  } catch (err: any) {
+    throw new AppError(
+      err?.status || HttpStatusCode.INTERNAL_SERVER_ERROR,
+      err?.message || ErrorMessages.INTERNAL_SERVER_ERROR,
+    )
+  }
+}
+
 export default {
   getUserTables,
   getUserTable,
+  addUserTable,
   deleteUserTable,
   updateUserTable,
 }

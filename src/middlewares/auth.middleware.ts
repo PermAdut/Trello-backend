@@ -4,7 +4,7 @@ import jwtUtil from '../utils/jwt.util'
 import { HttpStatusCode } from '../utils/statusCodes'
 import { ErrorMessages } from '../utils/errorMessage'
 
-export async function authenticateJwt(req: Request, res: Response, next: NextFunction): Promise<void> {
+export default async function authenticateJwt(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const authHeader = req.headers.authorization
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

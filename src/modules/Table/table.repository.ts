@@ -22,6 +22,14 @@ class TableRepository {
     return queryResult.rows[0]
   }
 
+  async addTable(name: string, userId: number): Promise<ITable> {
+    const queryResult: QueryResult<ITable> = await pool.query(
+      `INSERT INTO "Tables" ("userId", name) VALUES ($1, $2) RETURNING id, "userId", name`,
+      [userId, name],
+    )
+    return queryResult.rows[0]
+  }
+
   async deleteTableById(id: number): Promise<ITable> {
     const queryResult: QueryResult<ITable> = await pool.query(
       `DELETE FROM "Tables" WHERE id = $1 RETURNING id, "userId", name`,

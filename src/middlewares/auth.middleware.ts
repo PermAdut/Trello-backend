@@ -4,11 +4,7 @@ import jwtUtil from '../utils/jwt.util'
 import { HttpStatusCode } from '../utils/statusCodes'
 import { ErrorMessages } from '../utils/errorMessage'
 
-export interface AuthRequest extends Request {
-  user?: { id: number }
-}
-
-export async function authenticateJwt(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+export async function authenticateJwt(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const authHeader = req.headers.authorization
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -17,7 +13,7 @@ export async function authenticateJwt(req: AuthRequest, res: Response, next: Nex
     const token = authHeader.replace('Bearer ', '')
     const payload = await jwtUtil.verifyAccessToken(token)
 
-    req.user = { id: payload.id }
+    req.body = { ...req.body, userId: payload.id, username: payload.username }
     next()
   } catch (err) {
     next(err)

@@ -6,9 +6,20 @@ import { HttpStatusCode } from '../../utils/statusCodes'
 import { ErrorMessages } from '../../utils/errorMessage'
 
 class TableRepository {
-  async getTablesByUserId(id: number): Promise<ITable[]> {
-    const queryResult: QueryResult<ITable> = await pool.query('SELECT * FROM "Tables" WHERE "userId" = $1', [id])
+  async getTablesByUserId(userId: number): Promise<ITable[]> {
+    const queryResult: QueryResult<ITable> = await pool.query('SELECT * FROM "Tables" WHERE "userId" = $1', [userId])
     return queryResult.rows
+  }
+
+  async getTableById(id: number, userId: number): Promise<ITable> {
+    const queryResult: QueryResult<ITable> = await pool.query(
+      'SELECT * FROM "Tables" WHERE id = $1 AND "userId" = $2',
+      [id, userId],
+    )
+    if (!queryResult.rows.length) {
+      throw new AppError(HttpStatusCode.NOT_FOUND, ErrorMessages.TABLE_NOT_FOUND)
+    }
+    return queryResult.rows[0]
   }
 
   async deleteTableById(id: number): Promise<ITable> {

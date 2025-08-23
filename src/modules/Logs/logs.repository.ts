@@ -4,7 +4,7 @@ import { pool } from '../../utils/database.connection'
 import { PostLogsRequestDto } from './dto/logs.request.dto'
 
 class LogsRepository {
-  async getUserLogs(userId: number): Promise<ILogs[]> {
+  async getLogsByUserId(userId: number): Promise<ILogs[]> {
     const queryResult: QueryResult<ILogs> = await pool.query(
       'SELECT * FROM "Logs" WHERE "userId" = $1 ORDER BY id DESC LIMIT 20',
       [userId],

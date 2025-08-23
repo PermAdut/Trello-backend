@@ -35,7 +35,7 @@ async function getUserTable(tableId: number, userId: number): Promise<TableRespo
 async function deleteUserTable(userId: number, tableId: number): Promise<void> {
   try {
     await authRepositoryInstance.findUserById(userId)
-    await tableRepositoryInstance.deleteTableById(tableId)
+    await tableRepositoryInstance.deleteTableById(tableId, userId)
   } catch (err: any) {
     throw new AppError(
       err?.status || HttpStatusCode.INTERNAL_SERVER_ERROR,
@@ -47,7 +47,7 @@ async function deleteUserTable(userId: number, tableId: number): Promise<void> {
 async function updateUserTable(userId: number, tableId: number, name: string): Promise<TableResponseDto> {
   try {
     await authRepositoryInstance.findUserById(userId)
-    const table = await tableRepositoryInstance.updateTable(tableId, name)
+    const table = await tableRepositoryInstance.updateTable(tableId, name, userId)
     return table
   } catch (err: any) {
     throw new AppError(

@@ -6,7 +6,7 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS public."Users"
 (
     id bigserial NOT NULL,
-    email character varying(30) NOT NULL,
+    email character varying(50) NOT NULL,
     username character varying(20) NOT NULL,
     "firstName" character varying(20) NOT NULL,
     "passwordHash" character varying NOT NULL,

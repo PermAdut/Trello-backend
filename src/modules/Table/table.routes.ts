@@ -18,7 +18,14 @@ tableRouter
 tableRouter
   .route('')
   .post(
-    [body('name').isString().withMessage('Table name must be a string').trim()],
+    [
+      body('name')
+        .isString()
+        .withMessage('Table name must be a string')
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage('Table name must contain at least 1 symbol'),
+    ],
     validateMiddleware,
     authenticateJwt,
     tableController.addOne,
@@ -29,7 +36,12 @@ tableRouter
   .patch(
     [
       param('id').isInt({ min: 1 }).withMessage('ID must be a positive integer').toInt(),
-      body('name').isString().withMessage('Table name must be a string').trim(),
+      body('name')
+        .isString()
+        .withMessage('Table name must be a string')
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage('Table name must contain at least 1 symbol'),
     ],
     validateMiddleware,
     authenticateJwt,

@@ -35,8 +35,8 @@ authRouter.post(
     body('email')
       .isEmail()
       .withMessage('Email must be valid')
-      .isLength({ min: 10, max: 30 })
-      .withMessage('Email must be between 10 and 30 characters')
+      .isLength({ min: 10, max: 50 })
+      .withMessage('Email must be between 10 and 50 characters')
       .normalizeEmail(),
     body('firstName')
       .isString()

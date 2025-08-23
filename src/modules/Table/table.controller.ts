@@ -68,7 +68,7 @@ async function deleteOne(
 ) {
   try {
     await tableService.deleteUserTable(req.body.userId, req.params.id)
-    res.status(HttpStatusCode.NO_CONTENT)
+    res.status(HttpStatusCode.NO_CONTENT).json()
   } catch (err) {
     next(err)
   }

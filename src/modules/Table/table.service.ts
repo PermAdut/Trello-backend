@@ -22,8 +22,8 @@ async function getUserTables(userId: number): Promise<TableResponseDto[]> {
 async function getUserTable(tableId: number, userId: number): Promise<TableResponseDto> {
   try {
     await authRepositoryInstance.findUserById(userId)
-    const tables = await tableRepositoryInstance.getTableById(tableId, userId)
-    return tables
+    const table = await tableRepositoryInstance.getTableById(tableId, userId)
+    return table
   } catch (err: any) {
     throw new AppError(
       err?.status || HttpStatusCode.INTERNAL_SERVER_ERROR,

@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import authRouter from './modules/Auth/auth.routes'
 import tableRouter from './modules/Table/table.routes'
 import logsRouter from './modules/Logs/logs.routes'
+import listRouter from './modules/List/list.route'
 
 const corsOptions = {
   origin: process.env.ORIGINS,
@@ -22,6 +23,7 @@ app.use(cookieParser())
 app.use('/api/v1.0/auth', authRouter)
 app.use('/api/v1.0/table', tableRouter)
 app.use('/api/v1.0/logs', logsRouter)
+app.use('/api/v1.0/list/:tableId', listRouter)
 app.use(errorHandler)
 
 export default app

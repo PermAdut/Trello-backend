@@ -19,8 +19,15 @@ export enum ErrorMessages {
   TABLE_NOT_FOUND = 'Table with this id does not found',
   FAILED_UPDATE_TABLE = 'Failed to update table',
   FAILED_DELETE_TABLE = 'Failed delete table',
+
   //list
   LIST_NOT_FOUND = 'List with this id does not found',
   FAILED_UPDATE_LIST = 'Failed to update list',
   FAILED_DELETE_LIST = 'Failed delete list',
+
+  //task
+  TASK_NOT_FOUND = 'Task with this id does not found',
+  FAILED_UPDATE_TASK = 'Failed to update task',
+  FAILED_DELETE_TASK = 'Failed delete task',
+  NO_FIELDS_TO_UPDATE = 'No valid fields provided for update',
 }

@@ -30,4 +30,4 @@ async function create(
   }
 }
 
-export { getAll, create }
+export default { getAll, create }

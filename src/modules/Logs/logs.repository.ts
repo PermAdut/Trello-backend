@@ -14,8 +14,8 @@ class LogsRepository {
 
   async addLog(log: PostLogsRequestDto): Promise<ILogs> {
     const queryResult: QueryResult<ILogs> = await pool.query(
-      'INSERT INTO "Logs" ("userId", log, timestamp) VALUES ($1, $2, $3) RETURNING id, "userId", log, timestamp',
-      [log.userId, log.log, log.timestamp],
+      'INSERT INTO "Logs" ("userId", log) VALUES ($1, $2) RETURNING id, "userId", log, timestamp',
+      [log.userId, log.log],
     )
     return queryResult.rows[0]
   }

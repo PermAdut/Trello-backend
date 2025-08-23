@@ -10,7 +10,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
         error: errors
           .array()
           .map((el) => el.msg)
-          .join(';'),
+          .join('; '),
       })
     }
     next()

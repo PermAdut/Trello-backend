@@ -1,5 +1,5 @@
 import { QueryResult } from 'pg'
-import { IUser } from './user'
+import { IUser } from './types/user.intreface'
 import { pool } from '../../utils/database.connection'
 import { AppError } from '../../middlewares/error.middleware'
 import { HttpStatusCode } from '../../utils/statusCodes'

@@ -6,7 +6,7 @@ import { ErrorMessages } from '../../utils/errorMessage'
 import { HttpStatusCode } from '../../utils/statusCodes'
 import { LoginRequestDto, RegisterRequestDto } from './dto/user.request.dto'
 import { UserResponseDto } from './dto/user.response.dto'
-import { IUser } from './user'
+import { IUser } from './types/user.intreface'
 import '../../common/env'
 import authRepositoryInstance from './auth.repository'
 

@@ -1,4 +1,4 @@
-import { IUser } from '../user'
+import { IUser } from '../types/user.intreface'
 export interface LoginRequestDto extends Pick<IUser, 'username'> {
   password: string
 }

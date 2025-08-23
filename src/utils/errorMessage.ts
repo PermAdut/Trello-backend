@@ -17,4 +17,10 @@ export enum ErrorMessages {
 
   //table
   TABLE_NOT_FOUND = 'Table with this id does not found',
+  FAILED_UPDATE_TABLE = 'Failed to update table',
+  FAILED_DELETE_TABLE = 'Failed delete table',
+  //list
+  LIST_NOT_FOUND = 'List with this id does not found',
+  FAILED_UPDATE_LIST = 'Failed to update list',
+  FAILED_DELETE_LIST = 'Failed delete list',
 }

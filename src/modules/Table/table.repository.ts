@@ -36,7 +36,7 @@ class TableRepository {
       [id, userId],
     )
     if (!queryResult.rows.length) {
-      throw new AppError(HttpStatusCode.NOT_FOUND, ErrorMessages.TABLE_NOT_FOUND)
+      throw new AppError(HttpStatusCode.BAD_REQUEST, ErrorMessages.FAILED_DELETE_TABLE)
     }
     return queryResult.rows[0]
   }
@@ -47,7 +47,7 @@ class TableRepository {
       [id, name, userId],
     )
     if (!queryResult.rows.length) {
-      throw new AppError(HttpStatusCode.NOT_FOUND, ErrorMessages.TABLE_NOT_FOUND)
+      throw new AppError(HttpStatusCode.BAD_REQUEST, ErrorMessages.FAILED_UPDATE_TABLE)
     }
     return queryResult.rows[0]
   }

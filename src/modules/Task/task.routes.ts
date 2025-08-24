@@ -7,7 +7,7 @@ import taskController from './task.controller'
 const taskRouter = Router()
 
 taskRouter
-  .route('')
+  .route('/:tableId/:listId')
   .get(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),
@@ -19,7 +19,7 @@ taskRouter
   )
 
 taskRouter
-  .route('/:taskId')
+  .route('/:tableId/:listId/:taskId')
   .get(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),
@@ -32,13 +32,13 @@ taskRouter
   )
 
 taskRouter
-  .route('')
+  .route('/:tableId/:listId')
   .post(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),
       param('listId').isInt({ min: 1 }).withMessage('List ID must be a positive integer').toInt(),
       body('title').isString().trim().notEmpty().withMessage('Title must be a non-empty string'),
-      body('description').isString().withMessage('Description must be a string'),
+      body('orderIndex').isInt().withMessage('OrderIndex must be a number'),
     ],
     validateMiddleware,
     authenticateJwt,
@@ -46,7 +46,7 @@ taskRouter
   )
 
 taskRouter
-  .route('/:taskId')
+  .route('/:tableId/:listId/:taskId')
   .delete(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),
@@ -59,7 +59,7 @@ taskRouter
   )
 
 taskRouter
-  .route('/:taskId')
+  .route('/:tableId/:listId/:taskId')
   .patch(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),

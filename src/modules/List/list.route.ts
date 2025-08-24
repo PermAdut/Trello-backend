@@ -7,7 +7,7 @@ import validateMiddleware from '../../middlewares/validate.middleware'
 const listRouter = Router()
 
 listRouter
-  .route('')
+  .route('/:tableId')
   .get(
     [param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt()],
     validateMiddleware,
@@ -15,7 +15,7 @@ listRouter
     listController.getAll,
   )
 listRouter
-  .route('/:listId')
+  .route('/:tableId/:listId')
   .get(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),
@@ -26,7 +26,7 @@ listRouter
     listController.getOne,
   )
 listRouter
-  .route('')
+  .route('/:tableId')
   .post(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),
@@ -43,7 +43,7 @@ listRouter
   )
 
 listRouter
-  .route('/:listId')
+  .route('/:tableId/:listId')
   .patch(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),
@@ -60,7 +60,7 @@ listRouter
     listController.updateOne,
   )
 listRouter
-  .route('/:listId')
+  .route('/:tableId/:listId')
   .delete(
     [
       param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),

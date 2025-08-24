@@ -24,8 +24,8 @@ app.use(cookieParser())
 app.use('/api/v1.0/auth', authRouter)
 app.use('/api/v1.0/table', tableRouter)
 app.use('/api/v1.0/logs', logsRouter)
-app.use('/api/v1.0/list/:tableId', listRouter)
-app.use('/api/v1.0/task/:tableId/:listId', taskRouter)
+app.use('/api/v1.0/list', listRouter)
+app.use('/api/v1.0/task', taskRouter)
 app.use(errorHandler)
 
 export default app

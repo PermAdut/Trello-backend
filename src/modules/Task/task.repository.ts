@@ -22,17 +22,17 @@ class TaskRepository {
     return queryResult.rows[0]
   }
 
-  async addTask(task: Pick<ITask, 'title'>, listId: number): Promise<ITask> {
+  async addTask(task: Pick<ITask, 'title' | 'orderIndex'>, listId: number): Promise<ITask> {
     const queryResult: QueryResult<ITask> = await pool.query(
-      `INSERT INTO "Tasks" ("listId", title) VALUES ($1, $2) RETURNING id, "listId", title, description, isCompleted`,
-      [listId, task.title],
+      `INSERT INTO "Tasks" ("listId", title, "orderIndex") VALUES ($1, $2, $3) RETURNING id, "listId", title, description, "isCompleted", "orderIndex"`,
+      [listId, task.title, task.orderIndex],
     )
     return queryResult.rows[0]
   }
 
   async deleteTaskById(id: number, listId: number): Promise<ITask> {
     const queryResult: QueryResult<ITask> = await pool.query(
-      `DELETE FROM "Tasks" WHERE id = $1 AND "listId" = $2 RETURNING id, "listId", title, description, isCompleted`,
+      `DELETE FROM "Tasks" WHERE id = $1 AND "listId" = $2 RETURNING id, "listId", title, description, "isCompleted", "orderIndex"`,
       [id, listId],
     )
     if (!queryResult.rows.length) {
@@ -62,7 +62,10 @@ class TaskRepository {
       fields.push(`"isCompleted" = $${paramIndex++}`)
       values.push(body.isCompleted)
     }
-
+    if (body.orderIndex !== undefined) {
+      fields.push(`"orderIndex" = $${paramIndex++}`)
+      values.push(body.orderIndex)
+    }
     if (fields.length === 0) {
       throw new AppError(HttpStatusCode.BAD_REQUEST, ErrorMessages.NO_FIELDS_TO_UPDATE)
     }
@@ -71,7 +74,7 @@ class TaskRepository {
       UPDATE "Tasks"
       SET ${fields.join(', ')}
       WHERE id = $${paramIndex}
-      RETURNING id, "listId", title, description, "isCompleted"
+      RETURNING id, "listId", title, description, "isCompleted", "orderIndex"
     `
 
     const queryResult: QueryResult<ITask> = await pool.query(query, values)

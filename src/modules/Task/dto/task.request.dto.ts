@@ -6,3 +6,8 @@ export interface GetOneTaskRequestDto extends Pick<JWTPayloadDto, 'userId'> {}
 export interface PostTaskRequestDto extends Pick<ITask, 'title' | 'orderIndex'>, Pick<JWTPayloadDto, 'userId'> {}
 export interface UpdateTaskRequestDto extends Partial<Omit<ITask, 'id'>>, Pick<JWTPayloadDto, 'userId'> {}
 export interface DeleteTaskRequestDto extends Pick<JWTPayloadDto, 'userId'> {}
+export interface MoveTaskRequestDto extends Pick<JWTPayloadDto, 'userId'> {
+  tasks: ITask[]
+  movedTask: ITask
+  sourceListId: number
+}

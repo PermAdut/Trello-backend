@@ -75,4 +75,32 @@ taskRouter
     taskController.updateOne,
   )
 
+taskRouter.route('/:tableId').post(
+  [
+    param('tableId').isInt({ min: 1 }).withMessage('Table ID must be a positive integer').toInt(),
+    body('sourceListId').isInt({ min: 1 }).withMessage('Source List ID must be a positive integer'),
+
+    body('movedTask').isObject().withMessage('Moved task must be an object'),
+    body('movedTask.id').isInt({ min: 1 }).withMessage('Moved task ID must be a positive integer'),
+    body('movedTask.listId').isInt({ min: 1 }).withMessage('Moved task List ID must be a positive integer'),
+    body('movedTask.title').isString().notEmpty().trim().withMessage('Moved task title must be a non-empty string'),
+    //   body('movedTask.description')
+    //     .optional()
+    //     .isString()
+    //     .withMessage('Moved task description must be a string or null'),
+    body('movedTask.isCompleted').isBoolean().withMessage('Moved task isCompleted must be a boolean'),
+    body('movedTask.orderIndex').isInt({ min: 0 }).withMessage('Moved task orderIndex must be a non-negative integer'),
+
+    body('tasks').isArray({ min: 0 }).withMessage('Tasks must be an array'),
+    body('tasks.*.id').isInt({ min: 1 }).withMessage('Task ID must be a positive integer'),
+    body('tasks.*.listId').isInt({ min: 1 }).withMessage('Task List ID must be a positive integer'),
+    body('tasks.*.title').isString().notEmpty().trim().withMessage('Task title must be a non-empty string'),
+    //   body('tasks.*.description').optional().isString().withMessage('Task description must be a string or null'),
+    body('tasks.*.isCompleted').isBoolean().withMessage('Task isCompleted must be a boolean'),
+    body('tasks.*.orderIndex').isInt({ min: 0 }).withMessage('Task orderIndex must be a non-negative integer'),
+  ],
+  validateMiddleware,
+  authenticateJwt,
+  taskController.moveOne,
+)
 export default taskRouter

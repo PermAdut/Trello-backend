@@ -7,6 +7,7 @@ import {
   DeleteTaskRequestDto,
   GetAllTasksRequestDto,
   GetOneTaskRequestDto,
+  MoveTaskRequestDto,
   PostTaskRequestDto,
   UpdateTaskRequestDto,
 } from './dto/task.request.dto'
@@ -81,4 +82,19 @@ async function deleteTask(body: DeleteTaskRequestDto, params: TaskParamType): Pr
   }
 }
 
-export default { getAllTasks, getTaskById, addNewTask, updateTask, deleteTask }
+async function moveTasksInLists(
+  body: MoveTaskRequestDto,
+  params: Pick<TaskParamType, 'tableId'>,
+): Promise<TaskResponseDto[]> {
+  try {
+    await listService.getOneList({ userId: body.userId }, params.tableId, body.sourceListId)
+    return await taskRepositoryInstance.moveTasks(body.tasks, body.movedTask, body.sourceListId)
+  } catch (err) {
+    throw new AppError(
+      err?.status || HttpStatusCode.INTERNAL_SERVER_ERROR,
+      err?.message || ErrorMessages.INTERNAL_SERVER_ERROR,
+    )
+  }
+}
+
+export default { getAllTasks, getTaskById, addNewTask, updateTask, deleteTask, moveTasksInLists }

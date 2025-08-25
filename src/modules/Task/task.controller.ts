@@ -5,6 +5,7 @@ import {
   DeleteTaskRequestDto,
   GetAllTasksRequestDto,
   GetOneTaskRequestDto,
+  MoveTaskRequestDto,
   PostTaskRequestDto,
   UpdateTaskRequestDto,
 } from './dto/task.request.dto'
@@ -76,4 +77,17 @@ async function deleteOne(
   }
 }
 
-export default { getAll, getOne, addOne, updateOne, deleteOne }
+async function moveOne(
+  req: Request<Pick<TaskParamType, 'tableId'>, TaskResponseDto[], MoveTaskRequestDto, null>,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const result = await taskService.moveTasksInLists(req.body, req.params)
+    res.status(HttpStatusCode.OK).json(result)
+  } catch (err) {
+    next(err)
+  }
+}
+
+export default { getAll, getOne, addOne, updateOne, deleteOne, moveOne }
